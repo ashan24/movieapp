@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:movieapp/bloc/movie_export.dart';
+import 'package:movieapp/details.dart';
 
 class Animationfilms extends StatefulWidget {
   const Animationfilms({Key? key}) : super(key: key);
@@ -24,13 +25,27 @@ class _AnimationfilmsState extends State<Animationfilms> {
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (context, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    "https://image.tmdb.org/t/p/w500/${snapshot[index]['poster_path']}",
-                    height: 230,
-                    width: 180,
-                    fit: BoxFit.fitHeight,
+                String key = snapshot[index]['id'].toString();
+                return GestureDetector(
+                  onTap: () {
+                    context.read<MovieBloc>().add(Details(key: key));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => DetailScreen(
+                                id: snapshot[index]['poster_path']))));
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Hero(
+                      tag: snapshot[index]['poster_path'],
+                      child: Image.network(
+                        "https://image.tmdb.org/t/p/w500/${snapshot[index]['poster_path']}",
+                        height: 230,
+                        width: 180,
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
                   ),
                 );
               }),

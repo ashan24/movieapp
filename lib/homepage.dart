@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movieapp/animatedmovie.dart';
-
 import 'package:movieapp/bloc/movie_export.dart';
 import 'package:movieapp/bottomnavigation.dart';
 import 'package:movieapp/color.dart';

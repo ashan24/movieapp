@@ -13,9 +13,14 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       emit(MovieState(nowplaying: playing, animationfilm: animation));
     });
     on<Search>((event, emit) async {
-      final search = await getmovie(event.key);
+      final search = await getmovie('search', event.key);
 
       emit(MovieState(searchfilm: search));
+    });
+    on<Details>((event, emit) async {
+      final detail = await getmovie('details', event.key);
+
+      emit(MovieState(details: detail));
     });
   }
 }

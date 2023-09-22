@@ -1,8 +1,9 @@
 
+
 import 'package:tmdb_api/tmdb_api.dart';
 
-Future<dynamic> getmovie(String key) async {
-  final word = key;
+Future<dynamic> getmovie(String type, [String? key]) async {
+  final word = type;
   // final url = Uri.https('api.themoviedb.org',
   //     '/3/movie/550?api_key=5aa523ebb04e0ceb7e14543f9caa8224');
 
@@ -15,14 +16,44 @@ Future<dynamic> getmovie(String key) async {
         showLogs: true,
         showErrorLogs: true,
       ));
-  if (word == 'nowplaying') {
-    final movie = await movielist.v3.movies.getNowPlaying();
-    return movie['results'];
-  } else if (word == 'animation') {
-    final movie = await movielist.v3.discover.getMovies(withGenres: '16');
-    return movie['results'];
-  } else {
-    final movie = await movielist.v3.search.queryMovies(word);
-    return movie['results'];
+  switch (word) {
+    case "nowplaying":
+      {
+        final movie = await movielist.v3.movies.getNowPlaying();
+        // print(movie['results'][0]['id']);
+        // final detail = await movielist.v3.movies.getDetails(615656);
+        // print(detail['overview']);
+        return movie['results'];
+      }
+    case "animation":
+      {
+        final movie = await movielist.v3.discover.getMovies(withGenres: '16');
+        return movie['results'];
+      }
+    case "details":
+      {
+        final detail = await movielist.v3.movies.getDetails(int.parse(key!));
+
+        return detail;
+      }
+    default:
+      {
+        final movie = await movielist.v3.search.queryMovies(key!);
+        return movie['results'];
+      }
   }
+
+  // if (word == 'nowplaying') {
+  //   final movie = await movielist.v3.movies.getNowPlaying();
+  //   // print(movie['results'][0]['id']);
+  //   final detail = await movielist.v3.movies.getDetails(615656);
+  //   print(detail['overview']);
+  //   return movie['results'];
+  // } else if (word == 'animation') {
+  //   final movie = await movielist.v3.discover.getMovies(withGenres: '16');
+  //   return movie['results'];
+  // } else {
+  //   final movie = await movielist.v3.search.queryMovies(word);
+  //   return movie['results'];
+  // }
 }

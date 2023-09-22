@@ -18,3 +18,9 @@ class Search extends MovieEvent {
   @override
   List<Object> get props => [];
 }
+class Details extends MovieEvent {
+  final String key;
+  const Details({required this.key});
+  @override
+  List<Object> get props => [];
+}

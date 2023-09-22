@@ -86,7 +86,8 @@ class _MovielistState extends State<Movielist> {
         ),
       );
     } catch (e) {
-      print(e);
+      // print(e);
+      const Center(child: Text("Something went wrong"));
     }
     return const SizedBox(
       height: 10,
